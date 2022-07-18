@@ -12,7 +12,7 @@ Edit svc file and the below
 Then restart the service and then create debug configuration in intellj
 
 
-# Spring boot and MongoDB REST API - CRUD Example
+# Spring boot and MongoDB REST API - Reward management on purchase
 
 The application demonstrates the REST API using Spring boot and MongoDB. The application demonstrates all the database operations like Create, Read, Update and Delete.
 

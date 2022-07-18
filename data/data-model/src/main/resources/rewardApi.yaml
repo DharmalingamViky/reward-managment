@@ -161,8 +161,10 @@ components:
           description: customer name
         transactionTime:
           type: integer
-          format: int64          
-          
+          format: int64  
+        phoneNumber:
+          type: integer
+          format: int64                   
     CustomerType: 
       type: string
       enum: [NORMAL, PREMIUM]

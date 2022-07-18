@@ -62,8 +62,6 @@ public class RewardDBAccess implements IRewardManagerBAccess {
     }
 
 
-
-
     @Override
     public boolean delete(String customerId) throws AccessFailedException, ObjectNotFoundException {
         return false;
