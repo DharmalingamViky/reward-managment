@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.stellar.reward</groupId>
+        <artifactId>reward-manager</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <groupId>com.stellar.reward</groupId>
+    <artifactId>data</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>data-model</module>
+        <module>data-access</module>
+        <module>data-access-mongodb</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- JAXB -->
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${version.xml.jaxb.impl}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jvnet.jaxb2_commons</groupId>
+                <artifactId>jaxb2-basics-runtime</artifactId>
+                <version>${version.xml.jaxb.basic.runtime}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${version.xml.bind.jaxb.api}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml</groupId>
+                <artifactId>jaxp-api</artifactId>
+                <version>${version.xml.jaxp.api}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${version.javaee.api}</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-core</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mongojack</groupId>
+                <artifactId>mongojack</artifactId>
+                <version>${mongojack.version}</version>
+           </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

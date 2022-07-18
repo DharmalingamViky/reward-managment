@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+        <groupId>com.stellar.reward</groupId>
+        <artifactId>reward-manager</artifactId>	
+        <version>${revision}</version>
+	</parent>
+	
+    <artifactId>docker-reward-managment</artifactId>		
+    <packaging>pom</packaging>	
+    
+    <properties>
+        <!-- docker releated -->
+        <docker.registry.snapshot>XXXXXXXXX</docker.registry.snapshot>
+        <docker.registry.release>XXXXXXXXX</docker.registry.release>
+
+        <docker.product.name>stellar</docker.product.name>
+        <docker.service.name>${project.artifactId}</docker.service.name>
+        <docker.service.version>${project.version}</docker.service.version>
+        
+        <dockerFileDir>${project.build.directory}/generated-docker</dockerFileDir>
+        
+        <!-- skip as default, will be automatically enabled, see profile section -->
+        <docker.skip>true</docker.skip>
+        <docker.skip.build>true</docker.skip.build>
+        <docker.skip.push>true</docker.skip.push>
+        
+    </properties>
+        
+    <modules>        
+        <module>reward-managment</module>
+    </modules>
+
+    <build>
+        <plugins>
+            
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                
+                <configuration>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>${docker.registry.deploy}/${docker.product.name}/${docker.service.name}:${docker.service.version.deploy}</name>
+                            <build>
+                                <dockerFileDir>${dockerFileDir}</dockerFileDir>
+                            </build>
+                        </image>
+                    </images>
+                    <registry>${docker.registry.deploy}</registry>
+                </configuration>
+                
+                <executions>
+                    <execution>
+                        <id>build-docker</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push-docker</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+    
+    <profiles>
+        <!-- all profiles prefixed with "automatic-" enable themselves -->
+    
+        <profile>
+            <id>automatic-chose-docker-registry</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/docker-image/Dockerfile</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.groovy.maven</groupId>
+                        <artifactId>gmaven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <source>
+                                        <!-- decide registry and version, based on release-flag and git-branch name -->
+                                        println "---------------------------------------"
+                                        branch = project.properties["git.branch"]
+                                        println("branch: " + branch)
+                                        releaseFlag = project.properties["project.release.flag"]
+                                        println "releaseFlag : " + releaseFlag
+                                        
+                                        // default for a release
+                                        project.properties["docker.service.version.deploy"] = project.properties["docker.service.version"]
+                                        project.properties["docker.registry.deploy"] = project.properties["docker.registry.release"]
+                                        
+                                        // in case we do not want to release ...
+                                        if (!Boolean.valueOf(releaseFlag)) {
+                                            // --> reg: snapshot
+                                            // --> version: extend with branch name
+                                            
+                                            project.properties["docker.registry.deploy"] = project.properties["docker.registry.snapshot"]
+                                            
+                                            // try to shorten the branchname
+                                            branch_short = branch
+                                            try {
+                                                branch_short = (branch =~ /.*\/([a-zA-Z0-9_\.]*-{0,1}[a-zA-Z0-9_\.]*).*/)[0][1]
+                                            } catch(Exception ignore) {
+                                                // at least remove the path to the branch, e.g. "origin/dev/XXX" or "dev/XXX"
+                                                pos = branch.lastIndexOf("/")
+                                                if (pos != -1) {
+                                                    branch_short = branch.substring(pos+1)
+                                                }
+                                            }
+                                            
+                                            // also ensure a maximum length
+                                            if (branch_short.length() > 20) {
+                                                branch_short = branch_short.substring(0, 20)
+                                            }
+                                            
+                                            // ... and extend docker's image version with branch_short name,
+                                            // so different branches have their own image available ...
+                                            project.properties["docker.service.version.deploy"] += "-" + branch_short
+                                        }
+                                        
+                                        println "docker image will be deployed to: " + project.properties["docker.registry.deploy"]
+                                        println "docker image will have this version: " + project.properties["docker.service.version.deploy"]
+                                        println "---------------------------------------"
+                                        
+                                    </source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>automatic-docker</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/docker-image/Dockerfile</exists>
+                </file>
+            </activation>
+            <properties>
+                <docker.skip>false</docker.skip>
+                <docker.skip.build>false</docker.skip.build>
+                <docker.skip.push>false</docker.skip.push>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>skipDocker</id>
+            <properties>
+                <docker.skip.build>true</docker.skip.build>
+                <docker.skip.push>true</docker.skip.push>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>skipDockerBuild</id>
+            <properties>
+                <docker.skip.build>true</docker.skip.build>
+                <docker.skip.push>false</docker.skip.push>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>skipDockerPush</id>
+            <properties>
+                <docker.skip.build>false</docker.skip.build>
+                <docker.skip.push>true</docker.skip.push>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
+

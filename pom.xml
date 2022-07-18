@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.stellar.reward</groupId>
+	<artifactId>reward-manager</artifactId>
+	
+    <version>${revision}</version>
+	<packaging>pom</packaging>
+	
+	<properties>
+     
+        <revision>1.0.0-SNAPSHOT</revision>
+        
+       
+        <project.release.flag>false</project.release.flag>
+        
+        <!-- general -->
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+      
+        <maven.deploy.skip>true</maven.deploy.skip>       
+        		
+       
+        <version.maven.release.plugin>3.2.0</version.maven.release.plugin>
+        <version.maven.scm.plugin>1.11.2</version.maven.scm.plugin>
+        <version.maven.build.helper.plugin>3.2.0</version.maven.build.helper.plugin>
+        <version.maven.jaxb2.plugin>0.9.1</version.maven.jaxb2.plugin>
+        <version.maven.source.plugin>3.0.1</version.maven.source.plugin>
+        <version.maven.javadoc.plugin>3.2.0</version.maven.javadoc.plugin>
+        <version.maven.jar.plugin>3.2.0</version.maven.jar.plugin> 
+		<version.maven.clean.plugin>3.1.0</version.maven.clean.plugin>
+        <version.maven.build.helper.plugin>3.0.0</version.maven.build.helper.plugin>
+        <version.maven.war.plugin>3.2.2</version.maven.war.plugin>
+  
+		<!-- JAXB -->
+        <version.xml.bind.jaxb.api>2.2.12</version.xml.bind.jaxb.api>
+        <version.xml.jaxp.api>1.4.2</version.xml.jaxp.api>
+        <version.xml.jaxb.impl>2.2.6</version.xml.jaxb.impl>
+        <version.xml.jaxb.basic.runtime>1.11.1</version.xml.jaxb.basic.runtime>		
+
+        <!-- javax.xml.bind jaxb-api -->
+        <version.xml.bind.jaxb-api>2.2.12</version.xml.bind.jaxb-api>
+
+        <!-- javax.xml.bind jaxrpc-api -->
+        <version.xml.jaxp-api>1.4.2</version.xml.jaxp-api>
+
+        <!-- J2EE -->
+        <swagger.codegen.version>2.3.1</swagger.codegen.version>
+        <swagger.version>1.5.18</swagger.version>
+        <mongojack.version>2.8.0</mongojack.version>			
+		
+        <!-- J2EE -->
+        <version.javaee.api>8.0</version.javaee.api>
+		<spring-boot-dependencies-version>2.5.4</spring-boot-dependencies-version>
+					
+		<cors-filter>2.6</cors-filter>
+        <mockito.core.version>3.1.0</mockito.core.version>
+        <junit.platform.version>4.12</junit.platform.version>
+			
+		<version.codehaus.jettison>1.4.1</version.codehaus.jettison>
+		<verson.commons-lang3>3.9</verson.commons-lang3>
+		<verson.json-simple>1.1.1.redhat-1</verson.json-simple>
+        <verson.jackson-databind>2.12.4</verson.jackson-databind>
+		<openapi.generator>3.1.1</openapi.generator>
+        <springfox-version>2.9.2</springfox-version>
+        
+		        	
+		<version.apche.httpmime>4.4</version.apche.httpmime>
+   		
+	</properties>
+	
+	<modules>
+		<module>data</module>
+        <module>reward-managment</module>
+	</modules>
+    
+    <profiles>
+        <profile>
+            <id>release</id>
+            
+            <properties>
+                <project.release.flag>true</project.release.flag>
+            </properties>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>stick-to-the-rules</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseDeps>
+                                            <message>No Snapshots Allowed!</message>
+                                        </requireReleaseDeps>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+       <profile>
+          <id>docker</id>
+            <modules>
+                <module>docker</module>
+            </modules> 
+       </profile>
+    </profiles>
+    
+    <dependencyManagement>    
+        <dependencies>
+        
+            <!-- our own once -->
+            
+            <dependency>
+                <groupId>com.stellar.reward</groupId>
+                <artifactId>reward-data-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.stellar.reward</groupId>
+                <artifactId>reward-data-access</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.stellar.reward</groupId>
+                <artifactId>reward-data-access-mongodb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            
+            <!-- other -->
+            
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${version.apche.httpmime}</version>
+            </dependency>
+
+          
+        </dependencies>
+    </dependencyManagement>
+    
+    <build>  
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        
+            <!--
+                Enforce:
+                - minimal Java version 1.8
+                - minimal Maven version 3.5.0
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>stick-to-the-rules</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>1.8</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>3.6.0</version>
+                                </requireMavenVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!--
+                control/validate/check code/repository information 
+                see: https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/docs/using-the-plugin.md
+            -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <skipPoms>false</skipPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+    		<plugins>
+            
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.codehaus.groovy.maven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.30.0</version>
+                </plugin>
+                
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.shared</groupId>
+                            <artifactId>maven-filtering</artifactId>
+                            <version>3.1.1</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            
+            
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${version.maven.clean.plugin}</version>
+                </plugin>
+                
+            
+            	<plugin>
+					<groupId>org.jvnet.jaxb2.maven2</groupId>
+					<artifactId>maven-jaxb2-plugin</artifactId>
+					<version>${version.maven.jaxb2.plugin}</version>
+				</plugin>
+            
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.maven.source.plugin}</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${version.maven.javadoc.plugin}</version>
+                </plugin>                
+            
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${version.maven.jar.plugin}</version>
+				</plugin>
+                
+                
+    			<plugin>
+                	<groupId>io.swagger</groupId>
+                	<artifactId>swagger-codegen-maven-plugin</artifactId>
+                	<version>${swagger.codegen.version}</version>
+    			</plugin>                
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<skipTests>false</skipTests>
+				</configuration>
+			</plugin>
+            
+    		</plugins>
+    	</pluginManagement>
+    </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>product-sys-release</id>
+            <name>product-sys-release</name>
+            <url>https://xxxxx/product-sys-release</url>
+        </repository>
+        <snapshotRepository>
+            <id>product-sys-snapshot</id>
+            <name>product-sys-snapshot</name>
+            <url>https://xxxxx/product-sys-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>    
+    <scm>
+        <connection>scm:git:https://github.com/DharmalingamViky/reward-managment.git</connection>
+    </scm>    
+</project>

@@ -1,0 +1,19 @@
+application:
+  name: reward-managment
+
+server:
+  port: 9090
+  max-http-header-size: 16KB
+  servlet:
+    context-path: /reward/v1
+
+interval:
+  lastUpdateTime: 20000
+  callCopyMethod: 30000
+
+
+dpPort: 37020
+dpIP : localhost
+dbUseNname: Admin2
+dbpassword: Admin2
+database: test

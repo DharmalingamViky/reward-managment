@@ -1,4 +1,3 @@
-# reward-managment
 To enable Debug mode
 
 Edit svc file and the below 

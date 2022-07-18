@@ -1,0 +1,170 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Reward API
+  license:
+    name: Stellar
+servers:
+  - url: /reward/v1
+paths:   
+  /reward:
+    post:
+      description: "This request allows you to create new reward."
+      summary: create new entry for customer
+      operationId: insertReward
+      tags:
+        - reward CrUD     
+      requestBody:
+        description: reward to insert
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RewardCreationRequest"
+      responses:
+        '200':
+          description: id of reward insertion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RewardCreationResponse"
+        '400':
+          description: not enough or invalid parameters
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBase"         
+        '500':
+          description: internal processing error
+          content:
+            application/json:    
+              schema:
+                 $ref: "#/components/schemas/ResponseBase"  
+     
+  /reward/{customerId}:
+    get:
+      description: "This request gives the full overview of the reward for given customer Id."
+      summary: list reward
+      operationId: getReward
+      tags:
+        - reward CrUD
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: id of the customer
+          schema:
+            type: string        
+      responses:
+        '200':
+          description: success response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RewardGetResponse"
+        '400':
+          description: invalid parent id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBase"
+        '404':
+          description: reward does not exist
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBase"                   
+        '500':
+          description: internal processing error
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBase"                 
+    delete:
+      description: "This request to delete the customer by providing the customer id."
+      summary: delete customer
+      operationId: deleteCustomer
+      tags:
+        - reward CrUD
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: id of the customer to delete
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: basic success response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseBase"
+        '404':
+          description: customerId does not exist
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBase"         
+        '500':
+          description: internal error
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/ResponseBase"
+                
+components:
+  schemas:
+    ResponseBase:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: http return code
+          example: 200
+        message:
+          type: string
+          description: message describing the response
+          example: operation performed successfully
+        success:
+          type: boolean
+          description: indicates if the request success or failure
+          example: true     
+    RewardCreationRequest:
+      type: object
+      properties:
+        reward:
+          $ref: "#/components/schemas/Reward"   
+    RewardCreationResponse:
+      type: object
+      properties:
+        reward:
+          $ref: "#/components/schemas/Reward"   
+    RewardGetResponse:
+      type: object
+      properties:
+        reward:
+          $ref: "#/components/schemas/Reward"   
+    Reward:
+      type: object
+      properties: 
+        customerType: 
+          $ref: '#/components/schemas/CustomerType'
+        id:
+          type: string
+          description: unique id
+        rewardPoint:
+          type: integer
+          format: int64
+        customerName:
+          type: string
+          description: customer name
+        transactionTime:
+          type: integer
+          format: int64          
+          
+    CustomerType: 
+      type: string
+      enum: [NORMAL, PREMIUM]
+      description: Type of customer.
+   
