@@ -67,7 +67,7 @@ To do Testing through postman I have provide sampel inputs
 
 
 
-Post : http://localhost:9091/purchase/v1/reward
+* Post : http://localhost:9091/purchase/v1/reward
 
 Sample Json :
 
@@ -123,10 +123,35 @@ Sample Json :
  }
  
  
- GET http://localhost:9091/purchase/v1/reward/9524435880
+ * GET http://localhost:9091/purchase/v1/reward/9524435880
  
  Sample output for GET
  
+ class RewardHistory {
+    rewardPoint: class RewardPoint {
+        id: 9524435880
+        customerType: NORMAL
+        customerName: dharma
+        phoneNumber: 9524435880
+        summaryOfReward: [class Summary {
+            startTime: 1655983368959
+            endTime: 1658575368959
+            totalPurchase: 15600
+            reward: 31100
+            }, class Summary {
+            startTime: null
+            endTime: null
+            totalPurchase: null
+            reward: null
+            }, class Summary {
+            startTime: null
+            endTime: null
+            totalPurchase: null
+            reward: null
+            }
+        ]
+    }
+}
  
 
  
