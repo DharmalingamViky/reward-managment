@@ -1,7 +1,10 @@
 package com.stellar.reward.api.controller;
 
-import com.stellar.reward.api.RewardCrUdApi;
 import com.stellar.reward.api.service.RewardApiService;
+import com.stellar.reward.database.api.RewardCrUdApi;
+import com.stellar.reward.database.model.ResponseBase;
+import com.stellar.reward.database.model.RewardHistory;
+import com.stellar.reward.database.model.Transaction;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +15,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
 
 
 @RestController
@@ -37,19 +39,21 @@ public class RewardApiController implements RewardCrUdApi {
 
 
     @Override
-    public ResponseEntity<com.stellar.reward.api.model.RewardCreationResponse> insertReward(@ApiParam(value = "reward to insert") @Valid @RequestBody com.stellar.reward.api.model.RewardCreationRequest rewardCreationRequest){
-        return  rewardApiService.insertCustomer(rewardCreationRequest);
+    public ResponseEntity<ResponseBase> insertTransaction(@ApiParam(value = "reward to insert") @Valid @RequestBody Transaction transaction) {
+        return rewardApiService.insertTransaction(transaction);
     }
 
     @Override
-    public ResponseEntity<com.stellar.reward.api.model.ResponseBase> deleteCustomer(@ApiParam(value = "id of the customer to delete", required = true) @PathVariable("customerId") String customerId) {
-        return  rewardApiService.deleteCustomer(customerId);
+    public ResponseEntity<ResponseBase> deleteCustomer(@ApiParam(value = "id of the customer to delete", required = true) @PathVariable("customerId") String customerId) {
+        return rewardApiService.deleteCustomer(customerId);
 
     }
 
     @Override
-    public ResponseEntity<com.stellar.reward.api.model.RewardGetResponse> getReward(@ApiParam(value = "id of the customer", required = true) @PathVariable("customerId") String customerId) {
-       return  rewardApiService.getReward(customerId);
+    public ResponseEntity<RewardHistory> getReward
+            (@ApiParam(value = "id of the customer", required = true) @PathVariable("customerId") String customerId) {
+        return rewardApiService.getReward(customerId);
     }
+
 
 }

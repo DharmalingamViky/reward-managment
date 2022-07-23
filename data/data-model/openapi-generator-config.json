@@ -8,7 +8,7 @@
   "supportingFiles": "false",
   "serializableModel": "true",
   "basePackage": "com.stellar.reward",
-  "modelPackage": "com.stellar.reward.api.model",
-  "apiPackage": "com.stellar.reward.api",
-  "configPackage": "com.stellar.reward.config"
+  "modelPackage": "com.stellar.reward.database.model",
+  "apiPackage": "com.stellar.reward.database.api",
+  "configPackage": "com.stellar.reward.database.config"
 }

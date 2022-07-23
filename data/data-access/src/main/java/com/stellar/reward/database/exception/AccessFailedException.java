@@ -1,4 +1,4 @@
-package com.stellar.database.exception;
+package com.stellar.reward.database.exception;
 
 /**
  * This exception reports access failures towards a database.

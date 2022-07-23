@@ -11,7 +11,7 @@ paths:
     post:
       description: "This request allows you to create new reward."
       summary: create new entry for customer
-      operationId: insertReward
+      operationId: insertTransaction
       tags:
         - reward CrUD     
       requestBody:
@@ -19,14 +19,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RewardCreationRequest"
+              $ref: "#/components/schemas/Transaction"
       responses:
         '200':
           description: id of reward insertion
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RewardCreationResponse"
+                $ref: "#/components/schemas/ResponseBase"
         '400':
           description: not enough or invalid parameters
           content:
@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RewardGetResponse"
+                $ref: "#/components/schemas/RewardHistory"
         '400':
           description: invalid parent id
           content:
@@ -130,41 +130,73 @@ components:
           type: boolean
           description: indicates if the request success or failure
           example: true     
-    RewardCreationRequest:
+    Transaction:
+      type: object
+      properties:
+        transaction:
+          $ref: "#/components/schemas/Transaction"
+    TransactionResponse:
       type: object
       properties:
         reward:
-          $ref: "#/components/schemas/Reward"   
-    RewardCreationResponse:
+          $ref: "#/components/schemas/ResponseBase"
+    RewardHistory:
       type: object
       properties:
-        reward:
-          $ref: "#/components/schemas/Reward"   
-    RewardGetResponse:
+        rewardPoint:
+          $ref: "#/components/schemas/RewardPoint"
+    RewardPoint:
+          type: object
+          properties:
+            id:
+              type: string
+              description: unique id
+            customerType:
+              $ref: '#/components/schemas/CustomerType'
+            customerName:
+              type: string
+              description: customer name
+            phoneNumber:
+              type: string
+            summaryOfReward:
+              type: array
+              items:
+                $ref: '#/components/schemas/Summary'
+    Summary:
       type: object
       properties:
+        startTime:
+         type: integer
+         format: int64
+        endTime:
+         type: integer
+         format: int64
+        totalPurchase:
+         type: integer
+         format: int64
         reward:
-          $ref: "#/components/schemas/Reward"   
-    Reward:
+         type: integer
+         format: int64
+    Transaction:
       type: object
-      properties: 
-        customerType: 
-          $ref: '#/components/schemas/CustomerType'
+      properties:
         id:
           type: string
           description: unique id
-        rewardPoint:
-          type: integer
-          format: int64
+        customerType: 
+          $ref: '#/components/schemas/CustomerType'
         customerName:
           type: string
           description: customer name
+        phoneNumber:
+          type: string
+        amountOfTransaction:
+          type: integer
+          format: int64
         transactionTime:
           type: integer
           format: int64  
-        phoneNumber:
-          type: integer
-          format: int64                   
+
     CustomerType: 
       type: string
       enum: [NORMAL, PREMIUM]

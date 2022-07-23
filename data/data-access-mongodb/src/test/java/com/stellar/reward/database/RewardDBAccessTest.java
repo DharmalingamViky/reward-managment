@@ -1,10 +1,7 @@
-package com.stellar.database;
+package com.stellar.reward.database;
 
-import com.stellar.database.exception.AccessFailedException;
-import com.stellar.database.mongodb.entity.reward.RewardDBAccess;
-import org.bson.BsonValue;
+import com.stellar.reward.database.mongodb.entity.reward.RewardDBAccess;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;

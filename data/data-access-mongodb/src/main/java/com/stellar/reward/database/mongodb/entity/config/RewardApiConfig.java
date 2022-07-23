@@ -1,9 +1,8 @@
-package com.stellar.database.mongodb.entity.config;
+package com.stellar.reward.database.mongodb.entity.config;
 
 import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import com.stellar.database.mongodb.entity.utility.ApiConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,7 @@ public class RewardApiConfig {
 
     Logger logger = LoggerFactory.getLogger(RewardApiConfig.class);
 
-    @Value("${dbusername}")
+    @Value("${dbUserName}")
     private String dbusername;
 
 
@@ -41,6 +40,8 @@ public class RewardApiConfig {
     @Value("${dpPort}")
     private String dpPort;
 
+    @Value("${numberOfSummary}")
+    private int numberOfSummary;
 
 
     public String getDpIp() {
@@ -82,6 +83,15 @@ public class RewardApiConfig {
 
     public void setDbpassword(String dbpassword) {
         this.dbpassword = dbpassword;
+    }
+
+
+    public int getNumberOfSummary() {
+        return numberOfSummary;
+    }
+
+    public void setNumberOfSummary(int numberOfSummary) {
+        this.numberOfSummary = numberOfSummary;
     }
 
 

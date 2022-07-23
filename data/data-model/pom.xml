@@ -95,13 +95,13 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>src/main/generated</directory>
+							<directory>${genFolder}</directory>
 						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
 
-			<!--Transaction API -->
+			<!--Transaction API-->
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>

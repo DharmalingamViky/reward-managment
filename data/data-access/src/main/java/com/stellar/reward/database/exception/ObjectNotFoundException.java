@@ -1,4 +1,4 @@
-package com.stellar.database.exception;
+package com.stellar.reward.database.exception;
 
 /**
  * This exception is to report that an object was not found in a database operation. 

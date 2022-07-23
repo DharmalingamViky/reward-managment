@@ -5,7 +5,7 @@ server:
   port: 9090
   max-http-header-size: 16KB
   servlet:
-    context-path: /reward/v1
+    context-path: /purchase/v1
 
 interval:
   lastUpdateTime: 20000
@@ -13,7 +13,9 @@ interval:
 
 
 dpPort: 37020
-dpIP : localhost
-dbUseNname: Admin2
+dpIp :  localhost
+dbUserName: Admin2
 dbpassword: Admin2
 database: test
+
+numberOfSummary: 3
