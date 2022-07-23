@@ -69,98 +69,72 @@ To do Testing through postman I have provide sampel inputs
 
 * Post : http://localhost:9091/purchase/v1/reward
 
-Sample Json :
+* Sample Json :
 
- {
-  "customerType":"NORMAL",
- "phoneNumber":"9524435880",
- "customerName":"dharma",
- "amountOfTransaction":120,
- "transactionTime":"1658574199000"
- }
+	 {
+	  "customerType":"NORMAL",
+	 "phoneNumber":"9524435880",
+	 "customerName":"dharma",
+	 "amountOfTransaction":120,
+	 "transactionTime":"1658574199000"
+	 }
  
  
- {
- "customerType":"NORMAL",
- "phoneNumber":"9524435880",
- "amountOfTransaction":5000,
- "transactionTime":"1657359210000"
- 
- }
- 
-  
- {class RewardHistory {
-    rewardPoint: class RewardPoint {
-        id: 9524435880
-        customerType: NORMAL
-        customerName: dharma
-        phoneNumber: 9524435880
-        summaryOfReward: [class Summary {
-            startTime: 1655983368959
-            endTime: 1658575368959
-            totalPurchase: 15600
-            reward: 31100
-            }, class Summary {
-            startTime: null
-            endTime: null
-            totalPurchase: null
-            reward: null
-            }, class Summary {
-            startTime: null
-            endTime: null
-            totalPurchase: null
-            reward: null
-            }
-        ]
-    }
-}
+	 {
+	 "customerType":"NORMAL",
+	 "phoneNumber":"9524435880",
+	 "amountOfTransaction":5000,
+	 "transactionTime":"1657359210000"
+	 
+	 }
 
- "customerType":"NORMAL",
- "phoneNumber":"9524435880",
- "amountOfTransaction":5000,
- "transactionTime":"1657445610000"
- 
- }
+	 {
+	 "customerType":"NORMAL",
+	 "phoneNumber":"9524435880",
+	 "amountOfTransaction":5000,
+	 "transactionTime":"1657445610000"
+	 
+	 }
  
  
  * GET http://localhost:9091/purchase/v1/reward/9524435880
  
- Sample output for GET
+ * Sample output for GET
  
- class RewardHistory {
-    rewardPoint: class RewardPoint {
-        id: 9524435880
-        customerType: NORMAL
-        customerName: dharma
-        phoneNumber: 9524435880
-        summaryOfReward: [class Summary {
-            startTime: 1655983368959
-            endTime: 1658575368959
-            totalPurchase: 15600
-            reward: 31100
-            }, class Summary {
-            startTime: null
-            endTime: null
-            totalPurchase: null
-            reward: null
-            }, class Summary {
-            startTime: null
-            endTime: null
-            totalPurchase: null
-            reward: null
-            }
-        ]
-    }
-}
+	``` class RewardHistory {
+		rewardPoint: class RewardPoint {
+			id: 9524435880
+			customerType: NORMAL
+			customerName: dharma
+			phoneNumber: 9524435880
+			summaryOfReward: [class Summary {
+				startTime: 1655983368959
+				endTime: 1658575368959
+				totalPurchase: 15600
+				reward: 31100
+				}, class Summary {
+				startTime: null
+				endTime: null
+				totalPurchase: null
+				reward: null
+				}, class Summary {
+				startTime: null
+				endTime: null
+				totalPurchase: null
+				reward: null
+				}
+			]
+		}
+	}```
  
 
  
 ## Document from mongo collection:
  
- {
-    "_id" : ObjectId("62dbc2185409bf46f18b49a2"),
-    "customerType" : "NORMAL",
-    "phoneNumber" : "9524435880",
-    "TotalAmountOfPurchase" : NumberLong(5000),
-    "transactionTime" : NumberLong(1658568810)
-}
+	 {
+		"_id" : ObjectId("62dbc2185409bf46f18b49a2"),
+		"customerType" : "NORMAL",
+		"phoneNumber" : "9524435880",
+		"TotalAmountOfPurchase" : NumberLong(5000),
+		"transactionTime" : NumberLong(1658568810)
+	}
