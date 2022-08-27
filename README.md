@@ -86,7 +86,7 @@ Here we have attached some sample screenshot for reference.
 
 ## Api collection
 
-[**download-api**] (doc/api-collection/Reward-Managment.postman_collection.json)
+[**download-api**] (https://github.com/DharmalingamViky/reward-managment/blob/main/doc/api-collection/Reward-Managment.postman_collection.json)
  
 
 ## Testing:
