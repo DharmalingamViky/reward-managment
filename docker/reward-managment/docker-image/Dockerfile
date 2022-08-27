@@ -1,4 +1,4 @@
-FROM  XXXX
+#FROM openjdk:8-jdk-alpine
 RUN mkdir -p /usr/stellar
 RUN mkdir /usr/stellar/resources
 WORKDIR /usr/stellar

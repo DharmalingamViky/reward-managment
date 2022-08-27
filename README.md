@@ -1,4 +1,4 @@
-To enable Debug mode
+## Debugging
 
 
 In kubernetes deployment To enable debug mode please update the svc file with below configuration
@@ -9,7 +9,7 @@ In kubernetes deployment To enable debug mode please update the svc file with be
     protocol: TCP
     targetPort: 5005
 
-	
+
 Then restart the service and then create debug configuration in intellj
 
 
@@ -41,16 +41,16 @@ mvn package
 java -jar target/reward-api-1.0.0-SNAPSHOT.jar
 ```
 
-Alternatively, you can run the app without packaging it using -
+3. **Alternatively, you can run the app without packaging it using**
 
 ```bash
 mvn spring-boot:run
 ```
 
-The backend server will start at <http://localhost:9091>.
+The backend server will start at <http://localhost:9090>.
 
 
-Prerequisite:
+## Prerequisite:
 
 Install mongo db and update the application.yaml with right information
 
@@ -59,13 +59,35 @@ Install mongo db and update the application.yaml with right information
 	dbUserName: Admin2
 	dbpassword: Admin2
 	database: test
-	
-	
+
+## To build Docker using mvn
+* cd docker
+* mvn clean install
+* it will build docker
+
+## To build docker using manual
+* docker build -t rewardmanagment:latest .
+
+## start the docker
+* docker run -p 9090:9090 rewardmanagment:latest
+
+## Schema
+![schema] (doc/img/db/database-schema.jpeg)
+
+## Sample postman request
+
+(doc/image/postman/get-request.jpg)
+(doc/image/postman/post-request.jpg)
+
+## Api collection
+
+	[Download file] (./doc/api-collection/Reward-Managment.postman_collection.json)
+
 ## Testing:
 
 To do Testing through postman I have provide sampel inputs
 
-
+(doc/img/unit-test-result.jpg)
 
 * Post : http://localhost:9091/purchase/v1/reward
 

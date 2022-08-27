@@ -34,7 +34,7 @@ public class RewardApiService {
     public ResponseEntity<RewardHistory> getReward(String customerId) {
         try {
             RewardHistory history = rewardApiDao.getReward(customerId);
-            return new ResponseEntity(history.toString(), HttpStatus.OK);
+            return new ResponseEntity(history, HttpStatus.OK);
         } catch (AccessFailedException e) {
             return new ResponseEntity("could not get reward information for customer id : " + Encode.forHtml(customerId), HttpStatus.INTERNAL_SERVER_ERROR);
 
