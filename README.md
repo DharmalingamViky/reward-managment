@@ -73,24 +73,27 @@ Install mongo db and update the application.yaml with right information
 
 ## Schema
 
-<img src="/doc/image/db/database-schema.jpg" alt="Alt text" title="Optional title">
+![schema](doc/image/db/database-schema.png)
+
 
 ## Sample postman request
 
-![Screenshot] of API request
+Here we have attached some sample screenshot for reference.
 
-<img src="/doc/image/postman/get-request.jpg" alt="Alt text" title="Optional title">
-<img src="/doc/image/postman/post-request.jpg" alt="Alt text" title="Optional title">
+![get-request](doc/image/postman/get-request.png)
+
+![pos-trequest](doc/image/postman/post-request.png)
 
 ## Api collection
 
-	[Download file] (/doc/api-collection/Reward-Managment.postman_collection.json)
+[**download-api**] (doc/api-collection/Reward-Managment.postman_collection.json)
+ 
 
 ## Testing:
 
-To do Testing through postman I have provide sampel inputs
+To do Testing through postman I have provide sample inputs
 
-(doc/img/unit-test-result.jpg)
+![unitest](doc/image/unit-test-result.png)
 
 * Post : http://localhost:9091/purchase/v1/reward
 
