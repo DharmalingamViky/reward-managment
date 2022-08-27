@@ -72,16 +72,18 @@ Install mongo db and update the application.yaml with right information
 * docker run -p 9090:9090 rewardmanagment:latest
 
 ## Schema
-![schema] (doc/img/db/database-schema.jpeg)
+![schema] (doc/image/db/database-schema.JPG)
 
 ## Sample postman request
 
-(doc/image/postman/get-request.jpg)
-(doc/image/postman/post-request.jpg)
+![Screenshot] of API request
+
+(doc/image/postman/get-request.JPG)
+(doc/image/postman/post-request.JPG)
 
 ## Api collection
 
-	[Download file] (./doc/api-collection/Reward-Managment.postman_collection.json)
+	[Download file] (/doc/api-collection/Reward-Managment.postman_collection.json)
 
 ## Testing:
 
