@@ -1,13 +1,27 @@
+## Overview
+
+In this application we are storing the transaction details of the customer based on the unique Id and each every transaction 
+will create a new entry into database. (no sql database). and we are not performing any aggregation details.
+
+when ever we fetch customer details we will fetch all transaction done by the customer and calculate the reward point based on 
+the cumulative amount .
+
+
 ## Debugging
 
 
 In kubernetes deployment To enable debug mode please update the svc file with below configuration
 
-- name: debug
+
+``` 
+ name: debug
     port: 5005
     nodePort: 30007
     protocol: TCP
     targetPort: 5005
+    
+  ```
+    
 
 
 Then restart the service and then create debug configuration in intellj
